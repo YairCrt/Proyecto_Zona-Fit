@@ -8,8 +8,8 @@ public class Conexion {
         Connection conexion = null;
         var baseDatos = "zona_fit_db";
         var url = "jdbc:mysql://localhost:3306/" + baseDatos;
-        var usuario = ""; //Agregar usuario de la bd
-        var password = ""; //Agregar contraseña de la bd
+        var usuario = "root"; //Agregar usuario de la bd
+        var password = "admin"; //Agregar contraseña de la bd
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver"); //Clase de conexion a la BD
