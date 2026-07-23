@@ -97,6 +97,28 @@ public class ClienteDAO implements  IClienteDAO{
 
     @Override
     public boolean modificarCliente(Cliente cliente) {
+        PreparedStatement ps;
+        Connection con = Conexion.getConexion();
+        var sql = "UPDATE cliente SET nombre = ?, apellido = ?, membresia = ? WHERE id = ?";
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cliente.getNombre());
+            ps.setString(2, cliente.getApellido());
+            ps.setInt(3, cliente.getMembresia());
+            ps.setInt(4, cliente.getId());
+            ps.execute();
+            return true;
+        }catch (Exception e){
+            System.out.println("Error al modificar el cliente: " + e.getMessage());
+        }
+        finally {
+            try{
+                con.close();
+            }catch (Exception e){
+                System.out.println("Error al cerrar conexion: " + e.getMessage());
+            }
+        }
+
         return false;
     }
 
@@ -124,13 +146,21 @@ public class ClienteDAO implements  IClienteDAO{
 //        }
 
         //Agregar cliente
-        var nuevoCliente = new Cliente("Yair", "Sanchez", 310);
-        var agregado = clienteDao.agregarCliente(nuevoCliente);
-        if(agregado){
-            System.out.println("Cliente agregado: " + nuevoCliente);
-        }else{
-            System.out.println("No se agrego el cliente: " + nuevoCliente);
-        }
+//        var nuevoCliente = new Cliente("Yair", "Sanchez", 310);
+//        var agregado = clienteDao.agregarCliente(nuevoCliente);
+//        if(agregado){
+//            System.out.println("Cliente agregado: " + nuevoCliente);
+//        }else{
+//            System.out.println("No se agrego el cliente: " + nuevoCliente);
+//        }
+
+        //Modificar cliente
+        var modificarCliente = new Cliente(11, "Yael", "Sanchez", 333);
+        var modificado = clienteDao.modificarCliente(modificarCliente);
+        if(modificado)
+            System.out.println("Cliente modificado: " + modificarCliente);
+        else
+            System.out.println("No se modifico cliente ID: " + modificarCliente.getId());
 
         //Listar Clientes
         System.out.println("+++ Listar Clientes +++");
