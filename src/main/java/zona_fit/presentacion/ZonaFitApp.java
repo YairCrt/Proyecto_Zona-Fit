@@ -94,6 +94,20 @@ public class ZonaFitApp {
                     System.out.println("Cliente NO modificado: " + cliente);
                 }
             }
+            case 5 -> {
+                System.out.print("Ingrese el ID del cliente a eliminar: ");
+                var idCliente = Integer.parseInt(scan.nextLine());
+                var clienteEliminar = new Cliente(idCliente);
+                var eliminado = clienteDAO.eliminarCliente(clienteEliminar);
+                if(eliminado)
+                    System.out.println("Cliente eliminado: " + clienteEliminar);
+                else System.out.println("No se elimino el cliente: " + clienteEliminar);
+            }
+            case 6 -> {
+                System.out.println(" <-- Saliendo de Zona Fit -->");
+                salir = true;
+            }
+            default -> System.out.println("Opcion NO reconocida: " + opcion);
         }
 
         return salir;
